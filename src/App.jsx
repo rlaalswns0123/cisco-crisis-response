@@ -489,13 +489,16 @@ function App() {
           bottom: 0; left: 0; right: 0;
           transition: height 0.5s ease-out, background-color 0.5s ease;
           border-radius: 0 0 50px 50px;
+          z-index: 1; /* Behind surface */
         }
         
         .liquid-surface {
           position: absolute;
-          top: 0; left: 0; right: 0; height: 10px;
+          top: -5px; /* Pull up to center on the fill edge */
+          left: 0; right: 0; height: 10px;
           background: rgba(255,255,255,0.4);
           border-radius: 50%;
+          z-index: 2; /* On top of fill */
         }
 
         .gauge-marker {
