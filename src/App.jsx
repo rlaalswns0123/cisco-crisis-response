@@ -112,9 +112,14 @@ function App() {
                 {/* Remove blue overlay to show image clearly, or make it very subtle */}
                 {/* <div className="water-overlay" style={{ height: `${waterLevel}%` }}></div> */}
                 <div className="gauge-lines">
-                  <div className="line" style={{ top: '55%' }}><span>DANGER 4.0m</span></div>
-                  <div className="line" style={{ top: '70%' }}><span>WARNING 2.5m</span></div>
-                  <div className="line" style={{ top: '85%' }}><span>NORMAL 1.0m</span></div>
+                  <div className="vertical-pole">
+                    <div className="tick" style={{ bottom: '15%' }}></div>
+                    <div className="tick" style={{ bottom: '35%' }}></div>
+                    <div className="tick" style={{ bottom: '55%' }}></div>
+                  </div>
+                  <div className="line danger" style={{ top: '45%' }}><span>DANGER (Bank Level)</span></div>
+                  <div className="line warning" style={{ top: '65%' }}><span>WARNING</span></div>
+                  <div className="line normal" style={{ top: '80%' }}><span>NORMAL</span></div>
                 </div>
                 <div className="cam-overlay-text">LIVE FEED - HANOI_RIVER_CAM_01</div>
               </div>
@@ -287,31 +292,51 @@ function App() {
         .gauge-lines {
           position: absolute;
           top: 0; left: 0; width: 100%; height: 100%;
-          perspective: 500px; /* Enable 3D perspective */
+          perspective: 300px; /* Stronger perspective for low-angle look */
           pointer-events: none;
+        }
+
+        .vertical-pole {
+          position: absolute;
+          left: 20%; /* Position near a likely bridge pillar or bank */
+          top: 40%;
+          bottom: 0;
+          width: 4px;
+          background: rgba(255, 255, 255, 0.8);
+          box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+          transform: rotateX(10deg); /* Slight tilt */
+          z-index: 10;
+        }
+        
+        .vertical-pole .tick {
+           position: absolute; left: 0; width: 15px; height: 2px; background: #fff;
         }
         
         .gauge-lines .line {
            position: absolute;
-           width: 120%; /* Wider to cover angled view */
-           left: -10%;
-           border-top: 2px dashed rgba(255, 255, 255, 0.9);
-           box-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Drop shadow to separate from water */
-           transform: rotateX(60deg); /* Tilt to match water surface plane */
+           width: 150%; 
+           left: -25%;
+           border-top: 2px dashed rgba(255, 255, 255, 0.7);
+           box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+           transform: rotateX(60deg); 
            transform-origin: center center;
         }
         
+        .gauge-lines .line.danger { border-color: var(--danger); box-shadow: 0 0 10px var(--danger); }
+        .gauge-lines .line.warning { border-color: var(--warning); }
+        .gauge-lines .line.normal { border-color: var(--success); }
+        
         .gauge-lines span {
-           background: rgba(0, 188, 235, 0.9); /* Cisco Blue background */
+           background: rgba(0, 188, 235, 0.9);
            padding: 2px 8px; 
            font-size: 0.75rem; 
            color: #fff;
            position: absolute; 
-           right: 15%; 
-           top: -12px;
+           left: 21%; /* Align with pole */
+           top: -20px;
            border-radius: 4px;
-           transform: rotateX(0deg); /* Keep text flat facing user? Or tilt? Flat is better readable */
-           box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+           transform: rotateX(0deg); 
+           white-space: nowrap;
         }
         
         .cam-overlay-text {
