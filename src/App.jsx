@@ -571,9 +571,11 @@ function App() {
            justify-content: center;
            align-items: center;
            padding: 20px;
-           background: rgba(255,255,255,0.05);
+           background: #fff; /* White bg */
+           border: 2px solid #eee;
            border-radius: 8px;
            position: relative;
+           box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         
         .path-row { display: flex; align-items: center; gap: 15px; width: 100%; justify-content: space-around; }
@@ -587,37 +589,37 @@ function App() {
            flex-direction: column;
            align-items: center;
            justify-content: center;
-           background: rgba(0,0,0,0.5);
-           box-shadow: 0 0 10px rgba(0,255,255,0.2);
+           background: #f9f9f9;
+           box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .tech-node.warning { border-color: var(--warning); }
-        .tech-node.offline { border-color: var(--text-muted); opacity: 0.7; }
+        .tech-node.warning { border-color: var(--warning); background: #fffbf0; }
+        .tech-node.offline { border-color: #ddd; opacity: 1; background: #f0f0f0; }
         
         .tech-node .icon { font-size: 2rem; margin-bottom: 5px; }
-        .tech-node .name { font-size: 0.7rem; color: #fff; font-weight: bold; }
+        .tech-node .name { font-size: 0.7rem; color: #333; font-weight: bold; }
         
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #555; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; }
         .status-dot.online { background: var(--success); box-shadow: 0 0 5px var(--success); }
         .status-dot.warning { background: var(--warning); box-shadow: 0 0 5px var(--warning); }
         .status-dot.offline { background: var(--danger); }
         
         .link-segment { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; height: 40px; justify-content: center; }
-        .cable { width: 100%; height: 4px; background: #333; position: relative; overflow: hidden; border-radius: 2px; }
-        .cable.normal { background: rgba(0,255,100,0.2); }
+        .cable { width: 100%; height: 4px; background: #eee; position: relative; overflow: hidden; border-radius: 2px; }
+        .cable.normal { background: #e0fadd; }
         .cable.broken { background: transparent; border-bottom: 2px dashed var(--danger); height: 0; }
         
         .packet-flow { 
            position: absolute; top:0; left:0; width: 20px; height: 100%; 
            background: var(--success); 
            animation: flow 1s linear infinite; 
-           box-shadow: 0 0 10px var(--success);
+           box-shadow: 0 0 5px var(--success);
         }
         @keyframes flow { from { left: -20px; } to { left: 100%; } }
         
         .latency-tag { font-size: 0.7rem; color: var(--success); margin-top: 5px; font-weight: bold; }
         .latency-tag.error { color: var(--danger); animation: blink 1s infinite; }
         
-        .network-stat { margin-top: 20px; font-size: 1.2rem; color: #ccc; }
+        .network-stat { margin-top: 20px; font-size: 1.2rem; color: #333; }
         .network-stat strong.danger { color: var(--danger); }
         
         .analysis-panel {
@@ -625,24 +627,26 @@ function App() {
            display: flex;
            flex-direction: column;
            padding: 20px;
-           background: rgba(255,255,255,0.05);
+           background: #fff; /* White bg */
+           border: 2px solid #eee;
            border-radius: 8px;
+           box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .analysis-panel h4 { margin: 0 0 15px 0; font-size: 0.9rem; color: #aaa; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        .analysis-panel h4 { margin: 0 0 15px 0; font-size: 0.9rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         
-        .chart-container { flex: 1; position: relative; display: flex; align-items: flex-end; padding-bottom: 10px; margin-bottom: 15px; border-left: 1px solid #444; border-bottom: 1px solid #444; }
+        .chart-container { flex: 1; position: relative; display: flex; align-items: flex-end; padding-bottom: 10px; margin-bottom: 15px; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; }
         .chart-grid { display: flex; align-items: flex-end; width: 100%; height: 100%; gap: 5px; padding: 0 10px; }
         .bar { flex: 1; background: var(--success); border-radius: 2px 2px 0 0; opacity: 0.6; transition: height 0.3s; }
-        .bar.danger { background: var(--danger); opacity: 0.9; box-shadow: 0 0 10px var(--danger); animation: pulse-bar 0.5s infinite alternate; }
+        .bar.danger { background: var(--danger); opacity: 0.9; box-shadow: none; animation: pulse-bar 0.5s infinite alternate; }
         
         @keyframes pulse-bar { from { opacity: 0.7; } to { opacity: 1; } }
         
         .chart-overlay { position: absolute; top: 10px; right: 10px; }
-        .spike-alert { background: rgba(255,0,0,0.2); border: 1px solid var(--danger); color: var(--danger); font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: bold; animation: blink 1s infinite; }
+        .spike-alert { background: rgba(255,0,0,0.05); border: 1px solid var(--danger); color: var(--danger); font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: bold; animation: blink 1s infinite; }
         
         .metric-box { text-align: center; margin-bottom: 10px; }
-        .metric-label { font-size: 0.8rem; color: #aaa; letter-spacing: 1px; }
-        .metric-value { font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1; }
+        .metric-label { font-size: 0.8rem; color: #666; letter-spacing: 1px; }
+        .metric-value { font-size: 2.5rem; font-weight: 800; color: #333; line-height: 1; }
         .metric-box.danger .metric-value { color: var(--danger); text-shadow: 0 0 10px rgba(255,50,50,0.5); }
         .metric-desc { font-size: 0.8rem; color: #777; line-height: 1.4; }
         
