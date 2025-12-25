@@ -307,10 +307,10 @@ function App() {
 
         .camera-feed {
           flex: 3;
-          height: 450px; /* Increased Height */
+          height: 380px; /* Reduced Height from 450px */
           border: 2px solid #ccc;
           position: relative;
-          background: #fff; /* White Background */
+          background: #fff;
           border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
