@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import hanoiNormal from './assets/hanoi_normal.png';
+import hanoiRising from './assets/hanoi_rising.png';
+import hanoiFlood from './assets/hanoi_flood.png';
 
 const steps = [
   {
@@ -64,12 +67,19 @@ function App() {
       if (currentStep === 1) {
         // Water rising simulation
         const interval = setInterval(() => {
-          setWaterLevel(prev => Math.min(prev + 10, 85));
-        }, 500);
+          setWaterLevel(prev => Math.min(prev + 5, 85)); // Slower rise for better visual effect
+        }, 800);
         return () => clearInterval(interval);
       }
     }
   }, [currentStep]);
+
+  // Determine background image based on water level
+  const getCCTVImage = () => {
+    if (waterLevel < 40) return hanoiNormal;
+    if (waterLevel < 70) return hanoiRising;
+    return hanoiFlood;
+  };
 
   return (
     <div className="app-container">
@@ -98,21 +108,22 @@ function App() {
           {currentStep === 1 && (
             <div className="step-view animate-fade-in">
               <h3>Meraki MV72 Analysis</h3>
-              <div className="camera-feed">
-                <div className="water-overlay" style={{ height: `${waterLevel}%` }}></div>
+              <div className="camera-feed" style={{ backgroundImage: `url(${getCCTVImage()})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                {/* Remove blue overlay to show image clearly, or make it very subtle */}
+                {/* <div className="water-overlay" style={{ height: `${waterLevel}%` }}></div> */}
                 <div className="gauge-lines">
                   <div className="line" style={{ top: '20%' }}><span>DANGER 4.0m</span></div>
                   <div className="line" style={{ top: '50%' }}><span>WARNING 2.5m</span></div>
                   <div className="line" style={{ top: '80%' }}><span>NORMAL 1.0m</span></div>
                 </div>
-                <div className="cam-overlay-text">LIVE FEED - CAM_04</div>
+                <div className="cam-overlay-text">LIVE FEED - HANOI_RIVER_CAM_01</div>
               </div>
               <div className="metric">Water Level: {(waterLevel / 20).toFixed(1)}m <span className="blink">RISING</span></div>
               <div className="code-block">
                 <pre>{`{
-  "sensor_id": "MV72_04",
+  "sensor_id": "MV72_HANOI",
   "water_level": ${(waterLevel / 20).toFixed(2)},
-  "units": "meters",
+  "status": "${waterLevel > 70 ? 'CRITICAL' : waterLevel > 40 ? 'WARNING' : 'NORMAL'}",
   "timestamp": "${new Date().toISOString()}"
 }`}</pre>
               </div>
