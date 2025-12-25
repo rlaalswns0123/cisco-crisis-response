@@ -757,54 +757,54 @@ function App() {
         
         /* Step 3 Styles - Splunk Dashboard */
         .splunk-dashboard {
-           display: flex; flex-direction: column; gap: 10px; width: 100%; height: 100%;
-           background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #ddd;
+           display: flex; flex-direction: column; gap: 15px; width: 100%; height: 100%;
+           background: #fff; padding: 20px; border-radius: 4px; border: 1px solid #ddd;
            font-family: sans-serif; color: #333; overflow: hidden;
         }
         
-        .splunk-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 5px; border-bottom: 1px solid #eee; flex-shrink: 0; }
-        .splunk-header h3 { font-size: 1.1rem; margin: 0; color: #333; font-weight: 700; }
-        .sub-header { font-weight: 400; color: #666; margin-left: 10px; font-size: 0.9rem; }
-        .splunk-controls { display: flex; gap: 5px; }
-        .sm-btn { padding: 4px 10px; border: 1px solid #ccc; background: #fff; font-size: 0.75rem; border-radius: 3px; cursor: pointer; }
+        .splunk-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #eee; flex-shrink: 0; }
+        .splunk-header h3 { font-size: 1.3rem; margin: 0; color: #333; font-weight: 700; }
+        .sub-header { font-weight: 400; color: #666; margin-left: 10px; font-size: 1rem; }
+        .splunk-controls { display: flex; gap: 8px; }
+        .sm-btn { padding: 6px 12px; border: 1px solid #ccc; background: #fff; font-size: 0.85rem; border-radius: 3px; cursor: pointer; }
         .sm-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: bold; }
         
-        .splunk-content { display: flex; gap: 15px; flex: 1; min-height: 0; }
+        .splunk-content { display: flex; gap: 20px; flex: 1; min-height: 0; }
         
-        .splunk-main-col { flex: 5; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+        .splunk-main-col { flex: 5; display: flex; flex-direction: column; gap: 15px; min-height: 0; }
         .splunk-side-col { flex: 3; display: flex; flex-direction: column; min-height: 0; }
 
-        .kpi-row { display: flex; gap: 10px; justify-content: space-between; margin-bottom: 5px; flex-shrink: 0; }
-        .kpi-card { flex: 1; padding: 10px; background: #fff; border-left: 3px solid transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .kpi-row { display: flex; gap: 15px; justify-content: space-between; margin-bottom: 5px; flex-shrink: 0; }
+        .kpi-card { flex: 1; padding: 15px; background: #fff; border-left: 4px solid transparent; box-shadow: 0 3px 6px rgba(0,0,0,0.05); }
         .kpi-card.highlight { border-left-color: var(--danger); background: #fff5f5; }
-        .kpi-label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-bottom: 3px; }
-        .kpi-value { display: block; font-size: 1.4rem; font-weight: 700; color: #333; }
+        .kpi-label { display: block; font-size: 0.8rem; color: #666; text-transform: uppercase; margin-bottom: 5px; }
+        .kpi-value { display: block; font-size: 2rem; font-weight: 700; color: #333; }
         .kpi-value.danger { color: var(--danger); }
         
-        .splunk-grid-row { display: flex; gap: 10px; flex: 1; min-height: 0; }
-        .chart-panel { flex: 1; border: 1px solid #eee; padding: 10px; display: flex; flex-direction: column; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .chart-panel h4 { margin: 0 0 5px 0; font-size: 0.8rem; color: #555; }
+        .splunk-grid-row { display: flex; gap: 15px; flex: 1; min-height: 0; }
+        .chart-panel { flex: 1; border: 1px solid #eee; padding: 15px; display: flex; flex-direction: column; border-radius: 4px; box-shadow: 0 3px 6px rgba(0,0,0,0.05); }
+        .chart-panel h4 { margin: 0 0 10px 0; font-size: 1rem; color: #555; }
         .chart-area { flex: 1; position: relative; width: 100%; display: flex; align-items: flex-end; min-height: 0; }
         .graph-svg { width: 100%; height: 100%; }
         
-        .bar-chart-list { display: flex; flex-direction: column; gap: 5px; width: 100%; overflow-y: auto; }
-        .bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.7rem; }
-        .bar-label { width: 40px; text-align: right; color: #666; white-space: nowrap; }
-        .bar-track { flex: 1; height: 10px; background: #f0f0f0; border-radius: 2px; overflow: hidden; }
+        .bar-chart-list { display: flex; flex-direction: column; gap: 8px; width: 100%; overflow-y: auto; }
+        .bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+        .bar-label { width: 50px; text-align: right; color: #666; white-space: nowrap; }
+        .bar-track { flex: 1; height: 14px; background: #f0f0f0; border-radius: 2px; overflow: hidden; }
         .bar-val { height: 100%; }
         .bar-val.danger { background: #d93f3c; }
         .bar-val.warning { background: #f58f39; }
         .bar-val.info { background: #65a637; }
-        .bar-num { width: 30px; font-weight: bold; color: #333; font-size: 0.7rem; }
+        .bar-num { width: 35px; font-weight: bold; color: #333; font-size: 0.85rem; }
         
-        .splunk-table-panel { flex: 1; display:flex; flex-direction:column; border: 1px solid #eee; border-radius: 4px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: hidden; }
-        .splunk-table-panel h4 { margin: 0 0 10px 0; font-size: 0.8rem; color: #555; }
-        .splunk-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-        .splunk-table th { text-align: left; border-bottom: 1px solid #ccc; padding: 5px; color: #666; background: #f9f9f9; position: sticky; top: 0; }
-        .splunk-table td { border-bottom: 1px solid #eee; padding: 6px 5px; color: #333; }
+        .splunk-table-panel { flex: 1; display:flex; flex-direction:column; border: 1px solid #eee; border-radius: 4px; padding: 15px; box-shadow: 0 3px 6px rgba(0,0,0,0.05); overflow: hidden; }
+        .splunk-table-panel h4 { margin: 0 0 10px 0; font-size: 1rem; color: #555; }
+        .splunk-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .splunk-table th { text-align: left; border-bottom: 1px solid #ccc; padding: 8px; color: #666; background: #f9f9f9; position: sticky; top: 0; }
+        .splunk-table td { border-bottom: 1px solid #eee; padding: 10px 8px; color: #333; }
         .splunk-table tr:hover { background: #f9f9f9; }
         .row-danger { background: #fff0f0; }
-        .badge { padding: 2px 5px; border-radius: 3px; font-size: 0.6rem; color: #fff; font-weight: bold; }
+        .badge { padding: 3px 8px; border-radius: 3px; font-size: 0.7rem; color: #fff; font-weight: bold; }
         .badge.danger { background: #d93f3c; }
         .badge.warning { background: #f58f39; }
         .badge.info { background: #65a637; }
