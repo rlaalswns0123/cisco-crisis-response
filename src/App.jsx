@@ -44,11 +44,13 @@ function App() {
 
   const nextStep = () => {
     if (currentStep < 5) {
-      const step = steps[currentStep]; // Steps are 0-indexed in array but ID is +1? No, logic needs alignment.
-      // Let's align: step 1 is index 0.
-      // CurrentStep 0 -> Show Intro.
-      // CurrentStep 1 -> Show Step 1.
-      setCurrentStep(prev => prev + 1);
+      const nextStepIndex = currentStep + 1;
+      setCurrentStep(nextStepIndex);
+
+      const stepData = steps[nextStepIndex - 1];
+      if (stepData) {
+        setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${stepData.log}`]);
+      }
     }
   };
 
@@ -59,18 +61,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (currentStep > 0 && currentStep <= 5) {
-      const stepData = steps[currentStep - 1];
-      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${stepData.log}`]);
-
-      // Step specific logic
-      if (currentStep === 1) {
-        // Water rising simulation
-        const interval = setInterval(() => {
-          setWaterLevel(prev => Math.min(prev + 5, 85)); // Slower rise for better visual effect
-        }, 800);
-        return () => clearInterval(interval);
-      }
+    // Step specific logic
+    if (currentStep === 1) {
+      // Water rising simulation
+      const interval = setInterval(() => {
+        setWaterLevel(prev => Math.min(prev + 5, 85)); // Slower rise for better visual effect
+      }, 800);
+      return () => clearInterval(interval);
     }
   }, [currentStep]);
 
