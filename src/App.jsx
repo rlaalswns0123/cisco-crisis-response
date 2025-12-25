@@ -100,7 +100,13 @@ function App() {
             <div className="intro-screen animate-fade-in">
               <h2>Flood Response Protocol</h2>
               <p>Monitoring Stations Active</p>
-              <div className="pulse-circle"></div>
+              <div className="ramon-badge">
+                <div className="badge-ring"></div>
+                <div className="badge-core">
+                  <span className="ramon-title">RAMON</span>
+                  <span className="ramon-subtitle">AI AGENT</span>
+                </div>
+              </div>
               <button className="start-btn" onClick={nextStep}>INITIATE SIMULATION</button>
             </div>
           )}
@@ -721,7 +727,61 @@ function App() {
         button.reset-btn { background: var(--success); }
 
         .intro-screen { text-align: center; }
-        .pulse-circle { width: 100px; height: 100px; background: rgba(0, 240, 255, 0.1); border-radius: 50%; border: 2px solid var(--primary); margin: 30px auto; animation: pulse 2s infinite; }
+        
+        .ramon-badge {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .badge-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed var(--primary);
+            border-radius: 50%;
+            animation: spin-slow 10s linear infinite;
+        }
+
+        .badge-core {
+            width: 110px;
+            height: 110px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .ramon-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #000; /* Dark text on primary color for contrast */
+            letter-spacing: 2px;
+            font-family: var(--font-display);
+            line-height: 1;
+        }
+
+        .ramon-subtitle {
+            font-size: 0.65rem;
+            color: rgba(0,0,0,0.7);
+            letter-spacing: 1px;
+            margin-top: 2px;
+            font-weight: bold;
+        }
+
+        @keyframes spin-slow { 
+            from { transform: rotate(0deg); } 
+            to { transform: rotate(360deg); } 
+        }
         
         @media (max-width: 768px) {
            .dashboard-footer { flex-direction: column; height: auto; }
