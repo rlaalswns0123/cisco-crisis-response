@@ -292,22 +292,22 @@ function App() {
         /* Step 1 Styles */
         .step1-layout {
           display: flex;
-          gap: 20px;
+          gap: 30px; /* Increased gap */
           height: 100%;
           align-items: stretch;
           width: 100%;
         }
 
         .camera-feed {
-          flex: 2;
+          flex: 3; /* Increased from 2 to make it wider */
           height: 350px;
-          border: 2px solid #ccc; /* Lighter border for light theme */
+          border: 2px solid #ccc;
           position: relative;
-          background: #eee;
+          background: #333;
           border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-          min-width: 400px;
+          min-width: 500px; /* Increased min-width */
         }
 
         .side-gauge-panel {
@@ -316,14 +316,14 @@ function App() {
           flex-direction: column;
           align-items: center;
           padding: 20px;
-          min-width: 150px;
+          min-width: 200px; /* Increased min-width */
           background: rgba(255, 255, 255, 0.4);
           border-radius: 8px;
         }
 
         .side-gauge-panel h4 {
           margin-bottom: 20px;
-          font-size: 1rem;
+          font-size: 1.2rem; /* Larger title */
           color: var(--text-muted);
         }
 
@@ -336,27 +336,27 @@ function App() {
         }
 
         .liquid-gauge-tube {
-          width: 60px;
+          width: 120px; /* Doubled width from 60px */
           flex: 1;
           background: rgba(200, 200, 200, 0.2);
-          border-radius: 30px;
+          border-radius: 60px; /* Increased radius to match new width */
           border: 1px solid rgba(0,0,0,0.1);
           position: relative;
           overflow: hidden;
           margin-bottom: 10px;
-          box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+          box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
         }
 
         .liquid-fill {
           position: absolute;
           bottom: 0; left: 0; right: 0;
           transition: height 0.5s ease-out, background-color 0.5s ease;
-          border-radius: 0 0 30px 30px;
+          border-radius: 0 0 60px 60px; /* Match tube radius */
         }
         
         .liquid-surface {
           position: absolute;
-          top: 0; left: 0; right: 0; height: 8px;
+          top: 0; left: 0; right: 0; height: 10px;
           background: rgba(255,255,255,0.4);
           border-radius: 50%;
         }
