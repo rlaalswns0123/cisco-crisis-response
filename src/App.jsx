@@ -357,8 +357,20 @@ function App() {
           align-items: center;
           position: relative;
           overflow: hidden;
-          background: rgba(0,0,0,0.5);
-          min-height: 0; /* Remove restriction */
+          background: #fff; /* Changed to White */
+          min-height: 0;
+        }
+        
+        .intro-screen h2 {
+           color: #333;
+           margin-bottom: 10px;
+           text-transform: uppercase;
+           letter-spacing: 2px;
+        }
+        .intro-screen p {
+           color: #666;
+           font-weight: bold;
+           margin-bottom: 30px;
         }
         
         .dashboard-footer {
