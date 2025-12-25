@@ -247,10 +247,14 @@ function App() {
                 </div>
               ))}
             </div>
-            {currentStep > 0 && currentStep < 5 && (
-              <button className="next-btn" onClick={nextStep}>NEXT STAGE &rarr;</button>
-            )}
           </div>
+
+          {currentStep > 0 && currentStep < 5 && (
+            <button className="next-btn-side" onClick={nextStep}>
+              <span className="btn-text">NEXT<br />STAGE</span>
+              <span className="btn-icon">&rarr;</span>
+            </button>
+          )}
         </div>
       </main>
 
@@ -517,8 +521,8 @@ function App() {
         @keyframes moveRight { from { left: -20px; } to { left: 100%; } }
         
         /* General Layout */
-        .log-panel { flex: 2; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
-        .controls-panel { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content:space-between; }
+        .log-panel { flex: 3; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
+        .controls-panel { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; } /* just step indicator */
         
         .log-window { flex: 1; overflow-y: auto; font-family: monospace; font-size: 0.9rem; color: var(--text-muted); }
         .log-entry { margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2px; }
@@ -529,10 +533,33 @@ function App() {
         .dot.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); }
         .step-label { position: absolute; left: 25px; white-space: nowrap; font-size: 0.9rem; font-weight: bold; color: var(--primary); }
         
-        button.start-btn, button.next-btn, button.reset-btn {
+        .next-btn-side {
+           flex: 0 0 100px;
+           background: var(--primary);
+           border: none;
+           border-radius: 8px;
+           color: #000;
+           font-weight: 800;
+           cursor: pointer;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           gap: 10px;
+           transition: all 0.3s ease;
+           box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .next-btn-side:hover {
+           background: #fff;
+           box-shadow: 0 0 20px var(--primary);
+           transform: translateY(-2px);
+        }
+        .next-btn-side .btn-text { font-size: 0.9rem; line-height: 1.2; }
+        .next-btn-side .btn-icon { font-size: 2rem; }
+
+        button.start-btn, button.reset-btn {
            background: var(--primary); border: none; padding: 15px 30px; font-weight: bold; font-size: 1rem; color: #000; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); transition: all 0.3s;
         }
-        button.next-btn:hover { background: #fff; box-shadow: 0 0 20px var(--primary); }
         button.reset-btn { background: var(--success); }
 
         .intro-screen { text-align: center; }
