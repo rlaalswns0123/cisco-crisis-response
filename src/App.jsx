@@ -155,14 +155,79 @@ function App() {
 
           {currentStep === 2 && (
             <div className="step-view animate-fade-in">
-              <h3>ThousandEyes Network Path</h3>
-              <div className="network-graph">
-                <div className="node node-start">CAM</div>
-                <div className="link link-bad"></div>
-                <div className="node node-mid warning">ISP_HUB</div>
-                <div className="link link-broken"></div>
-                <div className="node node-end">SPLUNK</div>
-                <div className="alert-box">PACKET LOSS 98%</div>
+              <h3>2. Monitoring: Network Anomaly Detection</h3>
+              <div className="step2-layout">
+                {/* Left: Network Path Visualization */}
+                <div className="network-path-panel glass-panel">
+                  <div className="path-row">
+                    <div className="node-container">
+                      <div className="tech-node normal">
+                        <span className="icon">📷</span>
+                        <span className="name">CAM 01</span>
+                      </div>
+                      <div className="status-dot online"></div>
+                    </div>
+
+                    <div className="link-segment">
+                      <div className="cable normal">
+                        <div className="packet-flow"></div>
+                      </div>
+                      <div className="latency-tag">12ms</div>
+                    </div>
+
+                    <div className="node-container">
+                      <div className="tech-node warning">
+                        <span className="icon">📡</span>
+                        <span className="name">ISP HUB</span>
+                      </div>
+                      <div className="status-dot warning"></div>
+                    </div>
+
+                    <div className="link-segment">
+                      <div className="cable broken"></div>
+                      <div className="latency-tag error">TIMEOUT</div>
+                    </div>
+
+                    <div className="node-container">
+                      <div className="tech-node offline">
+                        <span className="icon">☁️</span>
+                        <span className="name">SPLUNK</span>
+                      </div>
+                      <div className="status-dot offline"></div>
+                    </div>
+                  </div>
+                  <div className="network-stat">
+                    <span>PATH STATUS:</span> <strong className="danger">CRITICAL FAILURE</strong>
+                  </div>
+                </div>
+
+                {/* Right: Data Loss Analysis */}
+                <div className="analysis-panel glass-panel">
+                  <h4>Data Loss Real-time Analysis</h4>
+                  <div className="chart-container">
+                    <div className="chart-grid">
+                      <div className="bar" style={{ height: '10%' }}></div>
+                      <div className="bar" style={{ height: '15%' }}></div>
+                      <div className="bar" style={{ height: '12%' }}></div>
+                      <div className="bar" style={{ height: '8%' }}></div>
+                      <div className="bar danger" style={{ height: '98%' }}></div>
+                      <div className="bar danger" style={{ height: '95%' }}></div>
+                      <div className="bar danger" style={{ height: '99%' }}></div>
+                    </div>
+                    <div className="chart-overlay">
+                      <div className="spike-alert">
+                        ⚠️ SUDDEN SPIKE
+                      </div>
+                    </div>
+                  </div>
+                  <div className="metric-box danger">
+                    <div className="metric-label">PACKET LOSS</div>
+                    <div className="metric-value">98.2%</div>
+                  </div>
+                  <div className="metric-desc">
+                    Rapid data loss detected due to physical infrastructure submersion.
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -497,12 +562,89 @@ function App() {
         }
         
         /* Step 2 Styles */
-        .network-graph { display: flex; align-items: center; gap: 20px; position: relative; }
-        .node { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--primary); display:grid; place-items:center; font-size: 0.7rem; z-index:2; background:#000;}
-        .link { width: 100px; height: 2px; background: var(--primary); }
-        .link-bad { background: var(--danger); }
-        .link-broken { border-top: 2px dashed var(--danger); background: transparent; height: 0; width: 100px;}
-        .alert-box { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); color: var(--danger); font-weight: bold; animation: pulse 1s infinite; }
+        .step2-layout { display: flex; width: 100%; height: 350px; gap: 20px; }
+        
+        .network-path-panel {
+           flex: 2;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           padding: 20px;
+           background: rgba(255,255,255,0.05);
+           border-radius: 8px;
+           position: relative;
+        }
+        
+        .path-row { display: flex; align-items: center; gap: 15px; width: 100%; justify-content: space-around; }
+        
+        .node-container { display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; }
+        .tech-node {
+           width: 80px; height: 80px;
+           border: 2px solid var(--primary);
+           border-radius: 10px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           background: rgba(0,0,0,0.5);
+           box-shadow: 0 0 10px rgba(0,255,255,0.2);
+        }
+        .tech-node.warning { border-color: var(--warning); }
+        .tech-node.offline { border-color: var(--text-muted); opacity: 0.7; }
+        
+        .tech-node .icon { font-size: 2rem; margin-bottom: 5px; }
+        .tech-node .name { font-size: 0.7rem; color: #fff; font-weight: bold; }
+        
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #555; }
+        .status-dot.online { background: var(--success); box-shadow: 0 0 5px var(--success); }
+        .status-dot.warning { background: var(--warning); box-shadow: 0 0 5px var(--warning); }
+        .status-dot.offline { background: var(--danger); }
+        
+        .link-segment { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; height: 40px; justify-content: center; }
+        .cable { width: 100%; height: 4px; background: #333; position: relative; overflow: hidden; border-radius: 2px; }
+        .cable.normal { background: rgba(0,255,100,0.2); }
+        .cable.broken { background: transparent; border-bottom: 2px dashed var(--danger); height: 0; }
+        
+        .packet-flow { 
+           position: absolute; top:0; left:0; width: 20px; height: 100%; 
+           background: var(--success); 
+           animation: flow 1s linear infinite; 
+           box-shadow: 0 0 10px var(--success);
+        }
+        @keyframes flow { from { left: -20px; } to { left: 100%; } }
+        
+        .latency-tag { font-size: 0.7rem; color: var(--success); margin-top: 5px; font-weight: bold; }
+        .latency-tag.error { color: var(--danger); animation: blink 1s infinite; }
+        
+        .network-stat { margin-top: 20px; font-size: 1.2rem; color: #ccc; }
+        .network-stat strong.danger { color: var(--danger); }
+        
+        .analysis-panel {
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+           padding: 20px;
+           background: rgba(255,255,255,0.05);
+           border-radius: 8px;
+        }
+        .analysis-panel h4 { margin: 0 0 15px 0; font-size: 0.9rem; color: #aaa; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        
+        .chart-container { flex: 1; position: relative; display: flex; align-items: flex-end; padding-bottom: 10px; margin-bottom: 15px; border-left: 1px solid #444; border-bottom: 1px solid #444; }
+        .chart-grid { display: flex; align-items: flex-end; width: 100%; height: 100%; gap: 5px; padding: 0 10px; }
+        .bar { flex: 1; background: var(--success); border-radius: 2px 2px 0 0; opacity: 0.6; transition: height 0.3s; }
+        .bar.danger { background: var(--danger); opacity: 0.9; box-shadow: 0 0 10px var(--danger); animation: pulse-bar 0.5s infinite alternate; }
+        
+        @keyframes pulse-bar { from { opacity: 0.7; } to { opacity: 1; } }
+        
+        .chart-overlay { position: absolute; top: 10px; right: 10px; }
+        .spike-alert { background: rgba(255,0,0,0.2); border: 1px solid var(--danger); color: var(--danger); font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: bold; animation: blink 1s infinite; }
+        
+        .metric-box { text-align: center; margin-bottom: 10px; }
+        .metric-label { font-size: 0.8rem; color: #aaa; letter-spacing: 1px; }
+        .metric-value { font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1; }
+        .metric-box.danger .metric-value { color: var(--danger); text-shadow: 0 0 10px rgba(255,50,50,0.5); }
+        .metric-desc { font-size: 0.8rem; color: #777; line-height: 1.4; }
         
         /* Step 3 Styles */
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; max-width: 600px; }
