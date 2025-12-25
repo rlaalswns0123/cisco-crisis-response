@@ -193,27 +193,29 @@ function App() {
           )}
         </div>
 
-        <div className="controls-panel glass-panel">
-          <div className="step-indicator">
-            {steps.map((s, i) => (
-              <div key={s.id} className={`dot ${currentStep > i ? 'active' : ''}`}>
-                {currentStep === i + 1 && <span className="step-label">{s.title}</span>}
-              </div>
-            ))}
+        <div className="dashboard-footer">
+          <div className="log-panel glass-panel">
+            <h4>EVENT LOG</h4>
+            <div className="log-window">
+              {logs.map((L, i) => (
+                <div key={i} className="log-entry">
+                  <span className="log-caret">&gt;</span> {L}
+                </div>
+              ))}
+            </div>
           </div>
-          {currentStep > 0 && currentStep < 5 && (
-            <button className="next-btn" onClick={nextStep}>NEXT STAGE &rarr;</button>
-          )}
-        </div>
 
-        <div className="log-panel glass-panel">
-          <h4>EVENT LOG</h4>
-          <div className="log-window">
-            {logs.map((L, i) => (
-              <div key={i} className="log-entry">
-                <span className="log-caret">&gt;</span> {L}
-              </div>
-            ))}
+          <div className="controls-panel glass-panel">
+            <div className="step-indicator">
+              {steps.map((s, i) => (
+                <div key={s.id} className={`dot ${currentStep > i ? 'active' : ''}`}>
+                  {currentStep === i + 1 && <span className="step-label">{s.title}</span>}
+                </div>
+              ))}
+            </div>
+            {currentStep > 0 && currentStep < 5 && (
+              <button className="next-btn" onClick={nextStep}>NEXT STAGE &rarr;</button>
+            )}
           </div>
         </div>
       </main>
@@ -237,14 +239,13 @@ function App() {
         .header h1 { font-size: 1.5rem; margin: 0; }
         
         .main-content {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          grid-template-rows: auto 1fr;
+          display: flex;
+          flex-direction: column;
           gap: 20px;
           flex: 1;
         }
         .visualization-area {
-          grid-column: 1 / -1;
+          flex: 1;
           min-height: 400px;
           display: flex;
           justify-content: center;
@@ -252,6 +253,12 @@ function App() {
           position: relative;
           overflow: hidden;
           background: rgba(0,0,0,0.5);
+        }
+        
+        .dashboard-footer {
+          display: flex;
+          gap: 20px;
+          height: 250px;
         }
         
         /* Step 1 Styles */
@@ -304,9 +311,10 @@ function App() {
         @keyframes moveRight { from { left: -20px; } to { left: 100%; } }
         
         /* General Layout */
-        .controls-panel { grid-column: 2; padding: 20px; display: flex; flex-direction: column; justify-content:space-between; }
-        .log-panel { grid-column: 1; padding: 20px; height: 200px; overflow: hidden; }
-        .log-window { height: 100%; overflow-y: auto; font-family: monospace; font-size: 0.9rem; color: var(--text-muted); }
+        .log-panel { flex: 2; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
+        .controls-panel { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content:space-between; }
+        
+        .log-window { flex: 1; overflow-y: auto; font-family: monospace; font-size: 0.9rem; color: var(--text-muted); }
         .log-entry { margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2px; }
         .log-caret { color: var(--primary); margin-right: 8px; }
         
@@ -325,7 +333,8 @@ function App() {
         .pulse-circle { width: 100px; height: 100px; background: rgba(0, 240, 255, 0.1); border-radius: 50%; border: 2px solid var(--primary); margin: 30px auto; animation: pulse 2s infinite; }
         
         @media (max-width: 768px) {
-           .main-content { grid-template-columns: 1fr; }
+           .dashboard-footer { flex-direction: column; height: auto; }
+           .log-panel, .controls-panel { height: 250px; }
         }
       `}</style>
     </div>
