@@ -237,22 +237,101 @@ function App() {
 
           {currentStep === 3 && (
             <div className="step-view animate-fade-in">
-              <h3>Splunk Intelligence</h3>
-              <div className="dashboard-grid">
-                <div className="dash-card">
-                  <h4>API WEATHER</h4>
-                  <div className="data-val">HEAVY RAIN</div>
+              <div className="splunk-dashboard">
+                <div className="splunk-header">
+                  <h3>Cisco Networks Overview <span className="sub-header">Real-time Flood Analysis</span></h3>
+                  <div className="splunk-controls">
+                    <button className="sm-btn">Edit</button>
+                    <button className="sm-btn primary">Export</button>
+                  </div>
                 </div>
-                <div className="dash-card warning">
-                  <h4>SENSOR DATA</h4>
-                  <div className="data-val">4.2m (+30%)</div>
+
+                <div className="kpi-row">
+                  <div className="kpi-card">
+                    <span className="kpi-label">TOTAL EVENTS</span>
+                    <span className="kpi-value">80,931</span>
+                  </div>
+                  <div className="kpi-card">
+                    <span className="kpi-label">UNIQUE DEVICES</span>
+                    <span className="kpi-value">12</span>
+                  </div>
+                  <div className="kpi-card">
+                    <span className="kpi-label">ACTIVE ALERTS</span>
+                    <span className="kpi-value danger">3</span>
+                  </div>
+                  <div className="kpi-card highlight">
+                    <span className="kpi-label">RISK SCORE</span>
+                    <span className="kpi-value danger">98</span>
+                  </div>
                 </div>
-                <div className="dash-card danger">
-                  <h4>PREDICTION</h4>
-                  <div className="data-val">FAIL &lt; 5MIN</div>
+
+                <div className="splunk-grid-row">
+                  <div className="chart-panel">
+                    <h4>Traffic Analysis by Time</h4>
+                    <div className="chart-area">
+                      <svg viewBox="0 0 300 100" preserveAspectRatio="none" className="graph-svg">
+                        <defs>
+                          <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style={{ stopColor: 'rgb(255,0,0)', stopOpacity: 0.6 }} />
+                            <stop offset="100%" style={{ stopColor: 'rgb(255,0,0)', stopOpacity: 0.1 }} />
+                          </linearGradient>
+                        </defs>
+                        <path d="M0,100 L0,80 Q30,60 60,85 T120,70 T180,50 T240,60 T300,20 V100 Z" fill="url(#grad1)" />
+                        <path d="M0,100 L0,90 Q40,80 80,95 T160,85 T240,90 T300,80 V100 Z" fill="#ccc" opacity="0.5" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="chart-panel">
+                    <h4>Alert Severity Distribution</h4>
+                    <div className="bar-chart-list">
+                      <div className="bar-row">
+                        <span className="bar-label">Critical</span>
+                        <div className="bar-track"><div className="bar-val danger" style={{ width: '95%' }}></div></div>
+                        <span className="bar-num">95%</span>
+                      </div>
+                      <div className="bar-row">
+                        <span className="bar-label">Warning</span>
+                        <div className="bar-track"><div className="bar-val warning" style={{ width: '40%' }}></div></div>
+                        <span className="bar-num">40%</span>
+                      </div>
+                      <div className="bar-row">
+                        <span className="bar-label">Info</span>
+                        <div className="bar-track"><div className="bar-val info" style={{ width: '20%' }}></div></div>
+                        <span className="bar-num">20%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="splunk-table-panel">
+                  <h4>Recent Port Flapping Events</h4>
+                  <table className="splunk-table">
+                    <thead>
+                      <tr><th>Time</th><th>Event Type</th><th>Source</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr className="row-danger">
+                        <td>14:32:05</td>
+                        <td>Water Level Critical</td>
+                        <td>Meraki_MV72</td>
+                        <td><span className="badge danger">CRITICAL</span></td>
+                      </tr>
+                      <tr>
+                        <td>14:31:58</td>
+                        <td>Packet Drop > 90%</td>
+                        <td>ThousandEyes_Node</td>
+                        <td><span className="badge warning">WARNING</span></td>
+                      </tr>
+                      <tr>
+                        <td>14:31:42</td>
+                        <td>Link Flapping</td>
+                        <td>ISP_Gateway</td>
+                        <td><span className="badge info">DOWN</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div className="ai-insight">AI RECOMMENDATION: <strong>REROUTE TRAFFIC</strong></div>
             </div>
           )}
 
@@ -670,12 +749,54 @@ function App() {
         .metric-box.danger .metric-value { color: var(--danger); text-shadow: 0 0 10px rgba(255,50,50,0.5); }
         .metric-desc { font-size: 0.8rem; color: #777; line-height: 1.4; }
         
-        /* Step 3 Styles */
-        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; max-width: 600px; }
-        .dash-card { border: 1px solid var(--primary); padding: 20px; text-align: center; }
-        .dash-card.warning { border-color: var(--warning); color: var(--warning); }
-        .dash-card.danger { border-color: var(--danger); color: var(--danger); }
-        .data-val { font-size: 1.5rem; font-weight: bold; margin-top: 10px; }
+        /* Step 3 Styles - Splunk Dashboard */
+        .splunk-dashboard {
+           display: flex; flex-direction: column; gap: 15px; width: 100%; height: 100%;
+           background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #ddd;
+           font-family: sans-serif; color: #333; overflow-y: auto;
+        }
+        
+        .splunk-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .splunk-header h3 { font-size: 1.1rem; margin: 0; color: #333; font-weight: 700; }
+        .sub-header { font-weight: 400; color: #666; margin-left: 10px; font-size: 0.9rem; }
+        .splunk-controls { display: flex; gap: 5px; }
+        .sm-btn { padding: 4px 10px; border: 1px solid #ccc; background: #fff; font-size: 0.75rem; border-radius: 3px; cursor: pointer; }
+        .sm-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: bold; }
+        
+        .kpi-row { display: flex; gap: 10px; justify-content: space-between; margin-bottom: 10px; }
+        .kpi-card { flex: 1; padding: 10px; background: #fff; border-left: 3px solid transparent; }
+        .kpi-card.highlight { border-left-color: var(--danger); background: #fff5f5; }
+        .kpi-label { display: block; font-size: 0.7rem; color: #666; text-transform: uppercase; margin-bottom: 3px; }
+        .kpi-value { display: block; font-size: 1.6rem; font-weight: 700; color: #333; }
+        .kpi-value.danger { color: var(--danger); }
+        
+        .splunk-grid-row { display: flex; gap: 15px; flex: 1; min-height: 180px; }
+        .chart-panel { flex: 1; border: 1px solid #eee; padding: 10px; display: flex; flex-direction: column; }
+        .chart-panel h4 { margin: 0 0 10px 0; font-size: 0.85rem; color: #555; }
+        .chart-area { flex: 1; position: relative; width: 100%; display: flex; align-items: flex-end; }
+        .graph-svg { width: 100%; height: 100%; }
+        
+        .bar-chart-list { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; }
+        .bar-label { width: 60px; text-align: right; color: #666; }
+        .bar-track { flex: 1; height: 12px; background: #f0f0f0; border-radius: 2px; overflow: hidden; }
+        .bar-val { height: 100%; }
+        .bar-val.danger { background: #d93f3c; }
+        .bar-val.warning { background: #f58f39; }
+        .bar-val.info { background: #65a637; }
+        .bar-num { width: 30px; font-weight: bold; color: #333; }
+        
+        .splunk-table-panel { margin-top: 10px; flex: 1; display:flex; flex-direction:column; }
+        .splunk-table-panel h4 { margin: 0 0 5px 0; font-size: 0.85rem; color: #555; }
+        .splunk-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .splunk-table th { text-align: left; border-bottom: 1px solid #ccc; padding: 5px; color: #666; font-size: 0.75rem; }
+        .splunk-table td { border-bottom: 1px solid #eee; padding: 6px 5px; color: #333; }
+        .splunk-table tr:hover { background: #f9f9f9; }
+        .row-danger { background: #fff0f0; }
+        .badge { padding: 2px 6px; border-radius: 3px; font-size: 0.65rem; color: #fff; font-weight: bold; }
+        .badge.danger { background: #d93f3c; }
+        .badge.warning { background: #f58f39; }
+        .badge.info { background: #65a637; }
         
         /* Step 4 Styles */
         .network-switch { text-align: center; }
