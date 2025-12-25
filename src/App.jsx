@@ -117,11 +117,30 @@ function App() {
                     <div className="tick" style={{ bottom: '35%' }}></div>
                     <div className="tick" style={{ bottom: '55%' }}></div>
                   </div>
-                  <div className="line danger" style={{ top: '45%' }}><span>DANGER (Bank Level)</span></div>
-                  <div className="line warning" style={{ top: '65%' }}><span>WARNING</span></div>
-                  <div className="line normal" style={{ top: '80%' }}><span>NORMAL</span></div>
+                  {/* Static Reference Lines (Faint) */}
+                  <div className="line danger" style={{ top: '45%', opacity: 0.3 }}><span>DANGER (Ref)</span></div>
+                  <div className="line warning" style={{ top: '65%', opacity: 0.3 }}><span>WARNING (Ref)</span></div>
+                  <div className="line normal" style={{ top: '80%', opacity: 0.3 }}><span>NORMAL (Ref)</span></div>
+
+                  {/* Dynamic Active Water Level Line */}
+                  <div className="line current-level" style={{
+                    top: `${103 - (waterLevel * 0.7)}%`,
+                    borderTop: `3px solid ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)'}`,
+                    boxShadow: `0 0 10px ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'currentColor' : 'var(--success)'}`,
+                    zIndex: 10
+                  }}>
+                    <span style={{
+                      backgroundColor: waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)',
+                      fontWeight: 'bold',
+                      fontSize: '0.85rem',
+                      color: '#fff',
+                      textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+                    }}>
+                      {waterLevel > 70 ? '⚠ FLOOD RISK' : waterLevel > 40 ? '⚠ RISING' : '✓ STABLE'}
+                      &nbsp;{(waterLevel / 20).toFixed(1)}m
+                    </span>
+                  </div>
                 </div>
-                <div className="cam-overlay-text">LIVE FEED - HANOI_RIVER_CAM_01</div>
               </div>
               <div className="metric">Water Level: {(waterLevel / 20).toFixed(1)}m <span className="blink">RISING</span></div>
               <div className="code-block">
