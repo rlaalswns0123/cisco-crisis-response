@@ -108,48 +108,40 @@ function App() {
           {currentStep === 1 && (
             <div className="step-view animate-fade-in">
               <h3>Meraki MV72 Analysis</h3>
-              <div className="camera-feed" style={{ backgroundImage: `url(${getCCTVImage()})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                {/* Remove blue overlay to show image clearly, or make it very subtle */}
-                {/* <div className="water-overlay" style={{ height: `${waterLevel}%` }}></div> */}
-                <div className="gauge-lines">
-                  <div className="vertical-pole">
-                    <div className="tick" style={{ bottom: '15%' }}></div>
-                    <div className="tick" style={{ bottom: '35%' }}></div>
-                    <div className="tick" style={{ bottom: '55%' }}></div>
-                  </div>
-                  {/* Static Reference Lines (Faint) */}
-                  <div className="line danger" style={{ top: '45%', opacity: 0.3 }}><span>DANGER (Ref)</span></div>
-                  <div className="line warning" style={{ top: '65%', opacity: 0.3 }}><span>WARNING (Ref)</span></div>
-                  <div className="line normal" style={{ top: '80%', opacity: 0.3 }}><span>NORMAL (Ref)</span></div>
+              <div className="step1-layout">
+                <div className="camera-feed" style={{ backgroundImage: `url(${getCCTVImage()})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                  {/* Clean Feed - No Overlays */}
+                </div>
 
-                  {/* Dynamic Active Water Level Line */}
-                  <div className="line current-level" style={{
-                    top: `${103 - (waterLevel * 0.7)}%`,
-                    borderTop: `3px solid ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)'}`,
-                    boxShadow: `0 0 10px ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'currentColor' : 'var(--success)'}`,
-                    zIndex: 10
-                  }}>
-                    <span style={{
-                      backgroundColor: waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)',
-                      fontWeight: 'bold',
-                      fontSize: '0.85rem',
-                      color: '#fff',
-                      textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-                    }}>
-                      {waterLevel > 70 ? '⚠ FLOOD RISK' : waterLevel > 40 ? '⚠ RISING' : '✓ STABLE'}
-                      &nbsp;{(waterLevel / 20).toFixed(1)}m
-                    </span>
+                <div className="side-gauge-panel glass-panel">
+                  <h4>Water Level</h4>
+                  <div className="liquid-gauge-container">
+                    <div className="liquid-gauge-tube">
+                      <div className="liquid-fill" style={{
+                        height: `${waterLevel}%`,
+                        backgroundColor: waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)',
+                        boxShadow: `0 0 20px ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)'}`
+                      }}>
+                        <div className="liquid-surface"></div>
+                      </div>
+
+                      {/* Markers */}
+                      <div className="gauge-marker danger" style={{ bottom: '70%' }}><span>CRITICAL (4.0m)</span></div>
+                      <div className="gauge-marker warning" style={{ bottom: '40%' }}><span>WARNING (2.5m)</span></div>
+                      <div className="gauge-marker normal" style={{ bottom: '20%' }}><span>NORMAL (1.0m)</span></div>
+                    </div>
+                    <div className="gauge-value-display">
+                      {(waterLevel / 20).toFixed(1)}m
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="metric">Water Level: {(waterLevel / 20).toFixed(1)}m <span className="blink">RISING</span></div>
-              <div className="code-block">
-                <pre>{`{
-  "sensor_id": "MV72_HANOI",
-  "water_level": ${(waterLevel / 20).toFixed(2)},
-  "status": "${waterLevel > 70 ? 'CRITICAL' : waterLevel > 40 ? 'WARNING' : 'NORMAL'}",
-  "timestamp": "${new Date().toISOString()}"
-}`}</pre>
+
+              <div className="metric-row">
+                <div className="metric">Status: <span className={waterLevel > 40 ? "blink" : ""}>{waterLevel > 70 ? 'CRITICAL ALERT' : waterLevel > 40 ? 'RISING' : 'STABLE'}</span></div>
+                <div className="code-block-mini">
+                  <pre>{`{ "id": "MV72", "lvl": ${(waterLevel / 20).toFixed(2)}, "ts": "${new Date().toLocaleTimeString()}" }`}</pre>
+                </div>
               </div>
             </div>
           )}
@@ -297,15 +289,114 @@ function App() {
         }
         
         /* Step 1 Styles */
+        /* Step 1 Styles */
+        .step1-layout {
+          display: flex;
+          gap: 20px;
+          height: 100%;
+          align-items: stretch;
+          width: 100%;
+        }
+
         .camera-feed {
-          width: 500px;
-          height: 300px;
+          flex: 2;
+          height: 350px;
           border: 2px solid #ccc; /* Lighter border for light theme */
           position: relative;
           background: #eee;
+          border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          min-width: 400px;
         }
+
+        .side-gauge-panel {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+          min-width: 150px;
+          background: rgba(255, 255, 255, 0.4);
+          border-radius: 8px;
+        }
+
+        .side-gauge-panel h4 {
+          margin-bottom: 20px;
+          font-size: 1rem;
+          color: var(--text-muted);
+        }
+
+        .liquid-gauge-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+        }
+
+        .liquid-gauge-tube {
+          width: 60px;
+          flex: 1;
+          background: rgba(200, 200, 200, 0.2);
+          border-radius: 30px;
+          border: 1px solid rgba(0,0,0,0.1);
+          position: relative;
+          overflow: hidden;
+          margin-bottom: 10px;
+          box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .liquid-fill {
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          transition: height 0.5s ease-out, background-color 0.5s ease;
+          border-radius: 0 0 30px 30px;
+        }
+        
+        .liquid-surface {
+          position: absolute;
+          top: 0; left: 0; right: 0; height: 8px;
+          background: rgba(255,255,255,0.4);
+          border-radius: 50%;
+        }
+
+        .gauge-marker {
+          position: absolute;
+          right: 0; width: 100%;
+          border-bottom: 2px dashed rgba(0,0,0,0.3);
+          font-size: 0.6rem;
+          color: #555;
+          z-index: 10;
+        }
+        
+        .gauge-marker span {
+          position: absolute;
+          right: 5px;
+          bottom: 2px;
+          white-space: nowrap;
+          font-weight: bold;
+          text-shadow: 0 0 2px rgba(255,255,255,0.8);
+        }
+
+        .gauge-value-display {
+          font-size: 2rem;
+          font-weight: bold;
+          font-family: var(--font-display);
+          color: var(--primary-dark);
+        }
+        
+        .metric-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-top: 15px;
+           background: rgba(255,255,255,0.5);
+           padding: 10px 20px;
+           border-radius: 8px;
+           width: 100%;
+        }
+        .code-block-mini { font-family: monospace; font-size: 0.8rem; color: var(--text-muted); }
         /* No water overlay div needed as we use images */
         
         .gauge-lines {
