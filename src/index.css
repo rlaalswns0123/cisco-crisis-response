@@ -1,22 +1,20 @@
 :root {
-  --bg-color: #050a14;
-  --panel-bg: rgba(16, 24, 40, 0.85);
-  --primary: #00f0ff;
-  /* Cyan */
-  --accent: #7000ff;
-  /* Purple */
-  --success: #39ff14;
-  /* Neon Green */
-  --warning: #ffcc00;
-  /* Amber */
-  --danger: #ff003c;
-  /* Red */
-  --text-main: #e0e6ed;
-  --text-muted: #94a3b8;
+  --bg-color: #f4f6f8;
+  --panel-bg: rgba(255, 255, 255, 0.85);
+  --primary: #00bceb;
+  /* Cisco Light Blue */
+  --primary-dark: #005073;
+  --accent: #64bbe3;
+  --success: #2fb55e;
+  --warning: #ff9d2e;
+  --danger: #e2231a;
+  --text-main: #333333;
+  --text-muted: #555555;
   --font-main: 'Inter', sans-serif;
   --font-display: 'Orbitron', sans-serif;
-  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-  --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.3);
+  /* Keep technical feel, or switch to Inter fully? User asked for logo-like atmosphere. */
+  --glass-border: 1px solid rgba(0, 188, 235, 0.2);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -32,8 +30,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   background-image:
-    radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
-    radial-gradient(circle at 90% 80%, rgba(112, 0, 255, 0.05) 0%, transparent 20%);
+    radial-gradient(circle at 10% 20%, rgba(0, 188, 235, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 80, 115, 0.05) 0%, transparent 40%);
 }
 
 h1,
@@ -41,8 +39,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
+  color: var(--primary-dark);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 button {
@@ -57,18 +56,18 @@ button {
   -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-soft);
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .glow-text {
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  text-shadow: 0 0 10px rgba(0, 188, 235, 0.3);
 }
 
 .status-badge {
@@ -81,19 +80,19 @@ button {
 }
 
 .status-normal {
-  background: rgba(57, 255, 20, 0.1);
+  background: rgba(47, 181, 94, 0.15);
   color: var(--success);
   border: 1px solid var(--success);
 }
 
 .status-warning {
-  background: rgba(255, 204, 0, 0.1);
+  background: rgba(255, 157, 46, 0.15);
   color: var(--warning);
   border: 1px solid var(--warning);
 }
 
 .status-danger {
-  background: rgba(255, 0, 60, 0.1);
+  background: rgba(226, 35, 26, 0.15);
   color: var(--danger);
   border: 1px solid var(--danger);
 }
@@ -113,15 +112,15 @@ button {
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.4);
+    box-shadow: 0 0 0 0 rgba(226, 35, 26, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 0 10px rgba(255, 0, 60, 0);
+    box-shadow: 0 0 0 10px rgba(226, 35, 26, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 60, 0);
+    box-shadow: 0 0 0 0 rgba(226, 35, 26, 0);
   }
 }
 
@@ -155,6 +154,7 @@ button {
   animation: pulse 2s infinite;
 }
 
+/* Grid background - lighter for white theme */
 .grid-bg {
   position: absolute;
   top: 0;
@@ -162,20 +162,20 @@ button {
   width: 100%;
   height: 100%;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 188, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 188, 235, 0.05) 1px, transparent 1px);
   background-size: 50px 50px;
   pointer-events: none;
   z-index: -1;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Light Theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050a14;
+  background: #f0f0f0;
 }
 
 ::-webkit-scrollbar-thumb {

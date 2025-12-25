@@ -112,9 +112,9 @@ function App() {
                 {/* Remove blue overlay to show image clearly, or make it very subtle */}
                 {/* <div className="water-overlay" style={{ height: `${waterLevel}%` }}></div> */}
                 <div className="gauge-lines">
-                  <div className="line" style={{ top: '20%' }}><span>DANGER 4.0m</span></div>
-                  <div className="line" style={{ top: '50%' }}><span>WARNING 2.5m</span></div>
-                  <div className="line" style={{ top: '80%' }}><span>NORMAL 1.0m</span></div>
+                  <div className="line" style={{ top: '55%' }}><span>DANGER 4.0m</span></div>
+                  <div className="line" style={{ top: '70%' }}><span>WARNING 2.5m</span></div>
+                  <div className="line" style={{ top: '85%' }}><span>NORMAL 1.0m</span></div>
                 </div>
                 <div className="cam-overlay-text">LIVE FEED - HANOI_RIVER_CAM_01</div>
               </div>
@@ -276,25 +276,52 @@ function App() {
         .camera-feed {
           width: 500px;
           height: 300px;
-          border: 2px solid #333;
+          border: 2px solid #ccc; /* Lighter border for light theme */
           position: relative;
-          background: #001;
+          background: #eee;
           overflow: hidden;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .water-overlay {
+        /* No water overlay div needed as we use images */
+        
+        .gauge-lines {
           position: absolute;
-          bottom: 0; left: 0; right: 0;
-          background: rgba(0, 100, 255, 0.4);
-          transition: height 0.5s ease;
-          border-top: 2px solid var(--primary);
+          top: 0; left: 0; width: 100%; height: 100%;
+          perspective: 500px; /* Enable 3D perspective */
+          pointer-events: none;
         }
+        
         .gauge-lines .line {
-           position: absolute; width: 100%; border-top: 1px dashed rgba(255,255,255,0.3);
-           width: 100%; left: 0;
+           position: absolute;
+           width: 120%; /* Wider to cover angled view */
+           left: -10%;
+           border-top: 2px dashed rgba(255, 255, 255, 0.9);
+           box-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Drop shadow to separate from water */
+           transform: rotateX(60deg); /* Tilt to match water surface plane */
+           transform-origin: center center;
         }
+        
         .gauge-lines span {
-           background: #000; padding: 2px 5px; font-size: 0.7rem; color: #fff;
-           position: absolute; right: 0; top: -10px;
+           background: rgba(0, 188, 235, 0.9); /* Cisco Blue background */
+           padding: 2px 8px; 
+           font-size: 0.75rem; 
+           color: #fff;
+           position: absolute; 
+           right: 15%; 
+           top: -12px;
+           border-radius: 4px;
+           transform: rotateX(0deg); /* Keep text flat facing user? Or tilt? Flat is better readable */
+           box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .cam-overlay-text {
+          position: absolute;
+          top: 10px; left: 10px;
+          color: #fff;
+          font-family: monospace;
+          background: rgba(0,0,0,0.5);
+          padding: 2px 6px;
+          font-size: 0.8rem;
         }
         
         /* Step 2 Styles */
