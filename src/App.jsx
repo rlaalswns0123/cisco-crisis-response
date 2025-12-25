@@ -496,9 +496,11 @@ function App() {
           position: absolute;
           top: -5px; /* Pull up to center on the fill edge */
           left: 0; right: 0; height: 10px;
-          background: rgba(255,255,255,0.4);
+          background-color: inherit; /* Match the fluid color */
+          filter: brightness(1.2); /* Top is lighter */
           border-radius: 50%;
           z-index: 2; /* On top of fill */
+          box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
 
         .gauge-marker {
