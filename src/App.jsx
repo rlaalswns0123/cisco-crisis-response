@@ -110,37 +110,44 @@ function App() {
               <h3>Meraki MV72 Analysis</h3>
               <div className="step1-layout">
                 <div className="camera-feed" style={{ backgroundImage: `url(${getCCTVImage()})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                  {/* Clean Feed - No Overlays */}
+                  {/* Clean Feed */}
                 </div>
 
                 <div className="side-gauge-panel glass-panel">
-                  <h4>Water Level</h4>
-                  <div className="liquid-gauge-container">
-                    <div className="liquid-gauge-tube">
-                      <div className="liquid-fill" style={{
-                        height: `${waterLevel}%`,
-                        backgroundColor: waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)',
-                        boxShadow: `0 0 20px ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)'}`
-                      }}>
-                        <div className="liquid-surface"></div>
+                  <div className="gauge-status-row">
+                    <div className="status-readout">
+                      <div className="readout-item">
+                        <span className="label">WATER HEIGHT</span>
+                        <span className="value">{(waterLevel / 20).toFixed(2)}m</span>
                       </div>
-
-                      {/* Markers */}
-                      <div className="gauge-marker danger" style={{ bottom: '70%' }}><span>CRITICAL (4.0m)</span></div>
-                      <div className="gauge-marker warning" style={{ bottom: '40%' }}><span>WARNING (2.5m)</span></div>
-                      <div className="gauge-marker normal" style={{ bottom: '20%' }}><span>NORMAL (1.0m)</span></div>
+                      <div className="readout-item">
+                        <span className="label">CURRENT LEVEL</span>
+                        <span className={`value status-${waterLevel > 70 ? 'danger' : waterLevel > 40 ? 'warning' : 'normal'}`}>
+                          {waterLevel > 70 ? 'CRITICAL' : waterLevel > 40 ? 'WARNING' : 'NORMAL'}
+                        </span>
+                      </div>
+                      <div className="readout-item">
+                        <span className="label">SENSOR ID</span>
+                        <span className="value-small">MV72_HANOI</span>
+                      </div>
                     </div>
-                    <div className="gauge-value-display">
-                      {(waterLevel / 20).toFixed(1)}m
+
+                    <div className="liquid-gauge-container">
+                      <div className="liquid-gauge-tube">
+                        <div className="liquid-fill" style={{
+                          height: `${waterLevel}%`,
+                          backgroundColor: waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)',
+                          boxShadow: `0 0 20px ${waterLevel > 70 ? 'var(--danger)' : waterLevel > 40 ? 'var(--warning)' : 'var(--success)'}`
+                        }}>
+                          <div className="liquid-surface"></div>
+                        </div>
+
+                        <div className="gauge-marker danger" style={{ bottom: '70%' }}><span>4.0m</span></div>
+                        <div className="gauge-marker warning" style={{ bottom: '40%' }}><span>2.5m</span></div>
+                        <div className="gauge-marker normal" style={{ bottom: '20%' }}><span>1.0m</span></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="metric-row">
-                <div className="metric">Status: <span className={waterLevel > 40 ? "blink" : ""}>{waterLevel > 70 ? 'CRITICAL ALERT' : waterLevel > 40 ? 'RISING' : 'STABLE'}</span></div>
-                <div className="code-block-mini">
-                  <pre>{`{ "id": "MV72", "lvl": ${(waterLevel / 20).toFixed(2)}, "ts": "${new Date().toLocaleTimeString()}" }`}</pre>
                 </div>
               </div>
             </div>
@@ -292,58 +299,97 @@ function App() {
         /* Step 1 Styles */
         .step1-layout {
           display: flex;
-          gap: 30px; /* Increased gap */
+          gap: 30px;
           height: 100%;
           align-items: stretch;
           width: 100%;
         }
 
         .camera-feed {
-          flex: 3; /* Increased from 2 to make it wider */
-          height: 350px;
+          flex: 3;
+          height: 450px; /* Increased Height */
           border: 2px solid #ccc;
           position: relative;
-          background: #333;
+          background: #fff; /* White Background */
           border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-          min-width: 500px; /* Increased min-width */
+          min-width: 500px;
         }
 
         .side-gauge-panel {
-          flex: 1;
+          flex: 2; /* Increased flex to hold text + gauge */
           display: flex;
           flex-direction: column;
-          align-items: center;
+          justify-content: center;
           padding: 20px;
-          min-width: 200px; /* Increased min-width */
-          background: rgba(255, 255, 255, 0.4);
+          min-width: 300px;
+          background: rgba(255, 255, 255, 0.6); /* Slightly more transparent */
           border-radius: 8px;
         }
 
-        .side-gauge-panel h4 {
-          margin-bottom: 20px;
-          font-size: 1.2rem; /* Larger title */
-          color: var(--text-muted);
+        .gauge-status-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          width: 100%;
+          height: 100%;
+        }
+
+        .status-readout {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          flex: 1;
+          text-align: left;
+        }
+
+        .readout-item {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .readout-item .label {
+           font-size: 0.8rem;
+           color: #666;
+           font-weight: bold;
+           margin-bottom: 4px;
+        }
+        
+        .readout-item .value {
+           font-size: 2rem;
+           font-weight: 800;
+           font-family: var(--font-display);
+           color: #333;
+        }
+        
+        .readout-item .value.status-danger { color: var(--danger); }
+        .readout-item .value.status-warning { color: var(--warning); }
+        .readout-item .value.status-normal { color: var(--success); }
+        
+        .readout-item .value-small {
+           font-size: 1.1rem;
+           font-family: monospace;
+           color: #555;
         }
 
         .liquid-gauge-container {
+          flex: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
           height: 100%;
-          width: 100%;
+          justify-content: center;
         }
 
         .liquid-gauge-tube {
-          width: 120px; /* Doubled width from 60px */
-          flex: 1;
+          width: 100px; /* Slightly reduced width to fit layout */
+          height: 90%;
           background: rgba(200, 200, 200, 0.2);
-          border-radius: 60px; /* Increased radius to match new width */
+          border-radius: 50px;
           border: 1px solid rgba(0,0,0,0.1);
           position: relative;
           overflow: hidden;
-          margin-bottom: 10px;
           box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
         }
 
@@ -351,7 +397,7 @@ function App() {
           position: absolute;
           bottom: 0; left: 0; right: 0;
           transition: height 0.5s ease-out, background-color 0.5s ease;
-          border-radius: 0 0 60px 60px; /* Match tube radius */
+          border-radius: 0 0 50px 50px;
         }
         
         .liquid-surface {
@@ -372,31 +418,14 @@ function App() {
         
         .gauge-marker span {
           position: absolute;
-          right: 5px;
+          left: 50%;
+          transform: translateX(-50%);
           bottom: 2px;
           white-space: nowrap;
           font-weight: bold;
           text-shadow: 0 0 2px rgba(255,255,255,0.8);
+          font-size: 0.7rem;
         }
-
-        .gauge-value-display {
-          font-size: 2rem;
-          font-weight: bold;
-          font-family: var(--font-display);
-          color: var(--primary-dark);
-        }
-        
-        .metric-row {
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           margin-top: 15px;
-           background: rgba(255,255,255,0.5);
-           padding: 10px 20px;
-           border-radius: 8px;
-           width: 100%;
-        }
-        .code-block-mini { font-family: monospace; font-size: 0.8rem; color: var(--text-muted); }
         /* No water overlay div needed as we use images */
         
         .gauge-lines {
