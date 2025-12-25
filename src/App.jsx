@@ -256,43 +256,47 @@ function App() {
 
       <style>{`
         .app-container {
-          min-height: 100vh;
+          height: 100vh;
           display: flex;
           flex-direction: column;
-          padding: 20px;
-          gap: 20px;
+          padding: 10px 15px; /* Tighter padding */
+          gap: 10px; /* Reduced gap */
           max-width: 1200px;
           margin: 0 auto;
+          overflow: hidden; /* Prevent scrolling globally */
         }
         .header {
-          padding: 20px;
+          padding: 10px 15px;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          flex-shrink: 0;
         }
-        .header h1 { font-size: 1.5rem; margin: 0; }
+        .header h1 { font-size: 1.4rem; margin: 0; }
         
         .main-content {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 10px;
           flex: 1;
+          min-height: 0; /* Important for flex child scrolling/fitting */
         }
         .visualization-area {
           flex: 1;
-          min-height: 400px;
           display: flex;
           justify-content: center;
           align-items: center;
           position: relative;
           overflow: hidden;
           background: rgba(0,0,0,0.5);
+          min-height: 0; /* Remove restriction */
         }
         
         .dashboard-footer {
           display: flex;
-          gap: 20px;
-          height: 250px;
+          gap: 15px;
+          height: 180px; /* Compact footer */
+          flex-shrink: 0;
         }
         
         /* Step 1 Styles */
@@ -307,8 +311,8 @@ function App() {
 
         .camera-feed {
           flex: 3;
-          height: 380px; /* Reduced Height from 450px */
-          border: 2px solid #ccc;
+          height: 320px; /* Reduced height to fit viewport */
+          border: 2px solid #ccc; /* Lighter border for light theme */
           position: relative;
           background: #fff;
           border-radius: 8px;
@@ -322,7 +326,7 @@ function App() {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 20px;
+          padding: 10px; /* Reduced padding */
           min-width: 300px;
           background: rgba(255, 255, 255, 0.6); /* Slightly more transparent */
           border-radius: 8px;
